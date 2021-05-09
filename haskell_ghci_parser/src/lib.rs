@@ -10,6 +10,8 @@ use std::{
 };
 #[cfg(target_os = "windows")]
 const NOMBREGHCI: &str = "ghci.exe";
+#[cfg(target_os = "macos")]
+const NOMBREGHCI: &str = "ghci";
 type Result<A> = std::result::Result<A,HaskellError>;
 
 pub struct HaskellGHCIParser{
