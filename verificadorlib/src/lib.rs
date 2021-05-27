@@ -35,6 +35,16 @@ pub fn chequear_descomposicion_en_primos(n:usize,devolucion:String)->bool{
     a+b == n && es_primo(a) && es_primo(b)
 }
 
+pub fn numero_de_descomposiciones(n:usize)->usize{
+    if n % 2 ==1 || n<3{panic!("No cumple contrato")}
+    let mut a = 0;
+    for i in 2..(n-1){
+        if es_primo(i) && es_primo(n-i){
+            a+=1;
+        }
+    }
+    a
+}
 
 #[cfg(test)]
 mod tests{
@@ -49,7 +59,7 @@ mod tests{
             }
         }
     }
-    /*#[test]
+    #[test]
     fn numero_de_descomposiciones_test() {
         use super::numero_de_descomposiciones;
         assert_eq!(4,numero_de_descomposiciones(20));
@@ -57,5 +67,5 @@ mod tests{
         assert_eq!(8,numero_de_descomposiciones(88));
         assert_eq!(1,numero_de_descomposiciones(4));
         assert_eq!(2904,numero_de_descomposiciones(123456))
-    }*/
+    }
 }

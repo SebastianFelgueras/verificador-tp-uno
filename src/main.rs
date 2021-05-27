@@ -7,6 +7,7 @@ use verificadorlib::{
     verifica_goldbach,
     verificar_conjetura_hasta,
     chequear_descomposicion_en_primos,
+    numero_de_descomposiciones,
 };
 use std::{
     process::exit,
@@ -87,6 +88,31 @@ fn main() {
         }
     }
     println!("descomposicionEnPrimos testeada.");
+
+    //numeroDeDescomposiciones
+    println!("Testeando numeroDeDescomposiciones.");
+    let mut errores = Vec::new();
+    print!("Testeando ");
+    for i in (4..llegar_hasta).step_by(2){
+        imprimir(i);
+        std::io::stdout().flush().unwrap();
+        if let Comparar::Diferentes(s) = procesar_resultado(interprete.chequear_valor(
+            &format!("numeroDeDescomposiciones {}\n",i), 
+            &format!("{}",numero_de_descomposiciones(i)))){
+                errores.push((i,s))
+                //println!("{} fallo en {} al devolver {}",mensaje,i,s);  
+        }
+    }
+    print!("\n");
+    if errores.is_empty(){
+        println!("No se encontraron errores")
+    }else{
+        println!("Se encontraron {} errores:",errores.len());
+        for (i,devuelto) in errores{
+            println!("numeroDeDescomposiciones fallo en {} al devolver {}",i,devuelto);
+        }
+    }
+    println!("numeroDeDescomposiciones testeada.");
     println!("Pruebas terminadas.");
     interprete.terminar();
 }
